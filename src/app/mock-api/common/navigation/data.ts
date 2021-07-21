@@ -30,10 +30,41 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'dashboard',
+        title: 'Dashboard',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        link : '/dashboard'
+    },
+
+    {
+        id   : 'buy',
+        title: 'Buy',
+        type : 'basic',
+        link : '/buy'
+    },
+    {
+        id   : 'earn',
+        title: 'Earn',
+        type : 'basic',
+        link : '/earn'
+    },
+    {
+        id   : 'send',
+        title: 'Send',
+        type : 'basic',
+        link : '/send'
+    },
+    {
+        id   : 'receive',
+        title: 'Receive',
+        type : 'basic',
+        link : '/receive'
+    },
+    {
+        id   : 'robo',
+        title: 'Robo',
+        type : 'basic',
+        link : '/robo'
+    },
+
 ];

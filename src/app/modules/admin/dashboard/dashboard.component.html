@@ -1,0 +1,120 @@
+<div class="dashboard-view">
+    <div class="flex flex-col flex-auto min-w-0 w-full max-w-screen-xl mx-auto">
+
+
+        <div class="text-lg font-medium text-center mobile-style pt-5 pb-15">
+
+
+            Try our Robo Allocator for maximizing your yields!</div>
+
+
+        <div>
+            <div class="flex justify-center ">
+
+                <!-- toggletoberemoved -->
+
+                <div
+                    class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:text-black-400 text-right	">
+                    <div class="mt-1 text-sm sm:text-lg font-medium ">Invested</div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+                    <br>
+                    <br>
+
+                    <div class="mt-1 text-sm sm:text-lg font-medium ">Annual Growth </div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+
+                </div>
+
+
+                <!--Empty block-->
+
+                <div>
+
+                    <app-highchart></app-highchart>
+
+                </div>
+
+
+                <div
+                    class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:bg-white dark:bg-opacity-5 dark:text-black-400">
+                    <div class="mt-1 text-sm sm:text-lg font-medium">Weekly Earning</div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+
+                    <br>
+                    <div class="mt-1 text-sm sm:text-lg font-medium">Wallet Balance </div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <!--Opportunities-->
+
+
+    <div class=" h-10 grid-rows-span text-xl font-semibold text-center mt-10">New Opportunities</div>
+    <div class="flex-auto grid grid-cols-3 gap-10 p-10">
+
+        <div class="flex flex-col flex-auto p-1 bg-card shadow rounded-md overflow-hidden ">
+            <div class="flex  flex-col items-center mt-1">
+
+                <mat-icon class="mr-1 icon-size-5 text-green-500" [svgIcon]="'heroicons_solid:trending-down'">
+                </mat-icon>
+                <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                    <span class="text-3xl font-semibold tracking-tight leading-tight text-green-500">2%</span>
+                    on USDC
+                </div>
+
+
+            </div>
+            <div class="text-lg font-bold text-center">by Nexo</div>
+
+        </div>
+        <div class="flex flex-col flex-auto p-1 bg-card shadow rounded-md overflow-hidden ">
+
+            <div class="flex  flex-col items-center mt-1">
+
+                <mat-icon class="mr-1 icon-size-5 text-green-500" [svgIcon]="'heroicons_solid:trending-down'">
+                </mat-icon>
+                <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                    <span class="text-3xl font-semibold tracking-tight leading-tight text-green-500">2%</span>
+                    on USDC
+                </div>
+
+
+            </div>
+            <div class="text-lg font-bold text-center"> by Crypto.com</div>
+
+        </div>
+
+        <div class="flex flex-col flex-auto p-1 bg-card shadow rounded-md overflow-hidden ">
+            <div class="flex  flex-col items-center mt-1">
+
+                <mat-icon class="mr-1 icon-size-5 text-green-500" [svgIcon]="'heroicons_solid:trending-down'">
+                </mat-icon>
+                <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                    <span class="text-3xl font-semibold tracking-tight leading-tight text-green-500">2%</span>
+                    on USDC
+                </div>
+
+
+            </div>
+            <div class="text-lg font-bold text-center">By Celsius</div>
+
+        </div>
+
+
+    </div>

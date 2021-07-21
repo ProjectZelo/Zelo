@@ -1,0 +1,12 @@
+<!-- Dark -->
+
+
+<div class="cursor-pointer bg-hover" [class.ring-2]="config.scheme === 'dark'" (click)="setScheme(mode)">
+    <div>
+        <mat-icon *ngIf="mode === 'light'" class="icon-size-5" [svgIcon]="'heroicons_solid:moon'"></mat-icon>
+        <mat-icon *ngIf="mode === 'dark'" class="icon-size-5" [svgIcon]="'heroicons_solid:sun'"></mat-icon>
+    </div>
+    <div class="flex items-center ml-2 font-medium leading-5" [class.text-secondary]="config.scheme !== 'dark'">
+
+    </div>
+</div>

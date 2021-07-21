@@ -1,4 +1,5 @@
-<div class="fuse-horizontal-navigation-wrapper">
+<div class="fuse-horizontal-navigation-wrapper lg:ml-32">
+
 
     <ng-container *ngFor="let item of navigation">
 
@@ -6,25 +7,19 @@
         <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
             <!-- Basic -->
-            <fuse-horizontal-navigation-basic-item
-                class="fuse-horizontal-navigation-menu-item"
-                *ngIf="item.type === 'basic'"
-                [item]="item"
-                [name]="name"></fuse-horizontal-navigation-basic-item>
+            <fuse-horizontal-navigation-basic-item class="fuse-horizontal-navigation-menu-item lg:p-3 mobile-style"
+                *ngIf="item.type === 'basic'" [item]="item" [name]="name"></fuse-horizontal-navigation-basic-item>
 
             <!-- Branch: aside, collapsable, group -->
-            <fuse-horizontal-navigation-branch-item
-                class="fuse-horizontal-navigation-menu-item"
-                *ngIf="item.type === 'aside' || item.type === 'collapsable' || item.type === 'group'"
-                [item]="item"
+            <fuse-horizontal-navigation-branch-item class="fuse-horizontal-navigation-menu-item"
+                *ngIf="item.type === 'aside' || item.type === 'collapsable' || item.type === 'group'" [item]="item"
                 [name]="name"></fuse-horizontal-navigation-branch-item>
 
             <!-- Spacer -->
-            <fuse-horizontal-navigation-spacer-item
-                class="fuse-horizontal-navigation-menu-item"
-                *ngIf="item.type === 'spacer'"
-                [item]="item"
-                [name]="name"></fuse-horizontal-navigation-spacer-item>
+            <fuse-horizontal-navigation-spacer-item class="fuse-horizontal-navigation-menu-item"
+                *ngIf="item.type === 'spacer'" [item]="item" [name]="name"></fuse-horizontal-navigation-spacer-item>
+
+
 
         </ng-container>
 

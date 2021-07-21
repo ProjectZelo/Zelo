@@ -15,6 +15,10 @@ fuse-horizontal-navigation {
 
                     .fuse-horizontal-navigation-item-wrapper {
                         @apply bg-hover;
+                        
+                        border-bottom : 2px solid grey;
+                        
+
                     }
                 }
             }
@@ -27,10 +31,15 @@ fuse-horizontal-navigation {
                     padding: 0 16px;
                     cursor: pointer;
                     user-select: none;
+                    @media (min-width:360px) and (max-width:760px){
+                        padding: 0 8px;  
+                    }
 
                     .fuse-horizontal-navigation-item-icon {
                         margin-right: 12px;
                     }
+
+
                 }
             }
         }
@@ -40,10 +49,9 @@ fuse-horizontal-navigation {
 
             .fuse-horizontal-navigation-item-active,
             .fuse-horizontal-navigation-item-active-forced {
+                border-bottom : 2px solid grey;
+                @apply bg-hover;
 
-                .fuse-horizontal-navigation-item-title {
-                    @apply text-primary #{'!important'};
-                }
 
                 .fuse-horizontal-navigation-item-subtitle {
                     @apply text-primary-400 #{'!important'};
@@ -74,6 +82,13 @@ fuse-horizontal-navigation {
         /* Spacer */
         fuse-horizontal-navigation-spacer-item {
             margin: 12px 0;
+        }
+        .mobile-style {
+            @media (min-width: 340px) and (max-width:760px){
+
+            padding-bottom:70px; 
+            padding-top: 50px;
+            }
         }
     }
 }
