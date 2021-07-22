@@ -9,12 +9,12 @@
 
 
         <div>
-            <div class="flex justify-center ">
+            <div [ngClass]="isPhoneOrTablet ? 'display-style' : 'flex justify-center'">
 
                 <!-- toggletoberemoved -->
 
-                <div
-                    class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:text-black-400 text-right	">
+                <div *ngIf="!isPhoneOrTablet" class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:text-black-400 text-right	"
+                   >
                     <div class="mt-1 text-sm sm:text-lg font-medium ">Invested</div>
                     <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
                         {{data.githubIssues.overview['last-week']['new-issues']}}
@@ -33,14 +33,52 @@
                 <!--Empty block-->
 
                 <div>
-
                     <app-highchart></app-highchart>
+                    <div *ngIf="isPhoneOrTablet" class="flex flex-row justify-between p-5">
+                        <div
+                        >
+                        <span>
+                            <div class="text-sm sm:text-lg font-medium ">Invested</div>
+                            <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                                {{data.githubIssues.overview['last-week']['new-issues']}}
+                            </div>
+                        </span>
+                         <br>
+     <span>
+        <div class="text-sm sm:text-lg font-medium ">Annual Growth </div>
+        <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+            {{data.githubIssues.overview['last-week']['new-issues']}}
+        </div>
+     </span>
 
+     
+                     </div>
+                        
+                 <div 
+                 >
+                 <span>
+                    <div class="text-sm sm:text-lg font-medium">Weekly Earning</div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+                 </span>
+
+                 <br>
+                 <span>
+                    <div class="text-sm sm:text-lg font-medium">Wallet Balance </div>
+                    <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
+                        {{data.githubIssues.overview['last-week']['new-issues']}}
+                    </div>
+                 </span>
+
+             </div>
+                    </div>
+       
                 </div>
 
 
-                <div
-                    class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:bg-white dark:bg-opacity-5 dark:text-black-400">
+                <div *ngIf="!isPhoneOrTablet" class="col-span-1 justify-center py-5 px-5 rounded-2xl bg-white-50 text-black-800 dark:text-black-400 text-right"
+                    >
                     <div class="mt-1 text-sm sm:text-lg font-medium">Weekly Earning</div>
                     <div class="text-5md sm:text-3xl font-bold leading-none tracking-tight">
                         {{data.githubIssues.overview['last-week']['new-issues']}}
@@ -53,11 +91,6 @@
                     </div>
 
                 </div>
-
-
-
-
-
 
             </div>
         </div>

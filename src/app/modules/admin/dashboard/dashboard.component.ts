@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy
     chartYearlyExpenses: ApexOptions = {};
     data: any;
     selectedProject: string = 'ACME Corp. Backend App';
+    isPhoneOrTablet: boolean;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this.isPhoneOrTablet = this.isMobileOrTablet();
         // Get the data
 
    
@@ -431,5 +433,12 @@ export class DashboardComponent implements OnInit, OnDestroy
                 }
             }
         };
+    }
+    isMobileOrTablet() {
+        const userAgent = navigator.userAgent;
+        return /Android/.test(userAgent) || /\b(iPad|iPhone|iPod)(?=;)/.test(userAgent);
+
+
+
     }
 }

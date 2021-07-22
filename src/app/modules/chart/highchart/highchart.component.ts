@@ -43,9 +43,7 @@ export class HighchartComponent implements OnInit {
 
 
       chart: {
-        backgroundColor: 'rgb(244, 247, 255)',
-        margin: 100
-
+        backgroundColor: 'rgb(244, 247, 255)'
       },
       title: {
         text: undefined
@@ -67,9 +65,6 @@ export class HighchartComponent implements OnInit {
         }
       },
       legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
         itemMarginTop: 16
       },
       tooltip: {
@@ -87,12 +82,8 @@ export class HighchartComponent implements OnInit {
       responsive: {
         rules: [{
           condition: {
-
-
             maxWidth: 50
           },
-
-
 
         }]
       }
