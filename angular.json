@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "fuse": {
+        "zelo": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/fuse",
+                        "outputPath": "dist/zelo",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -42,14 +42,14 @@
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
-                                "src/@fuse/styles"
+                                "src/@zelo/styles"
                             ]
                         },
                         "styles": [
-                            "src/@fuse/styles/tailwind.scss",
-                            "src/@fuse/styles/themes.scss",
+                            "src/@zelo/styles/tailwind.scss",
+                            "src/@zelo/styles/themes.scss",
                             "src/styles/vendors.scss",
-                            "src/@fuse/styles/main.scss",
+                            "src/@zelo/styles/main.scss",
                             "src/styles/styles.scss",
                             "src/styles/tailwind.scss"
                         ],
@@ -92,10 +92,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "fuse:build:production"
+                            "browserTarget": "zelo:build:production"
                         },
                         "development": {
-                            "browserTarget": "fuse:build:development"
+                            "browserTarget": "zelo:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -103,7 +103,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "fuse:build"
+                        "browserTarget": "zelo:build"
                     }
                 },
                 "test": {
@@ -137,9 +137,9 @@
             }
         }
     },
-    "defaultProject": "fuse",
+    "defaultProject": "zelo",
     "cli": {
-      "analytics": false,
+        "analytics": false,
         "defaultCollection": "@angular-eslint/schematics"
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
-import { FuseNavigationItem, FuseNavigationService } from '@fuse/components/navigation';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
+import { ZeloNavigationItem, ZeloNavigationService } from '@zelo/components/navigation';
+import { ZeloMockApiService } from '@zelo/lib/mock-api';
 import { defaultNavigation } from 'app/mock-api/common/navigation/data';
 import { contacts } from 'app/mock-api/apps/contacts/data';
 import { tasks } from 'app/mock-api/apps/tasks/data';
@@ -9,9 +9,8 @@ import { tasks } from 'app/mock-api/apps/tasks/data';
 @Injectable({
     providedIn: 'root'
 })
-export class SearchMockApi
-{
-    private readonly _defaultNavigation: FuseNavigationItem[] = defaultNavigation;
+export class SearchMockApi {
+    private readonly _defaultNavigation: ZeloNavigationItem[] = defaultNavigation;
     private readonly _contacts: any[] = contacts;
     private readonly _tasks: any[] = tasks;
 
@@ -19,10 +18,9 @@ export class SearchMockApi
      * Constructor
      */
     constructor(
-        private _fuseMockApiService: FuseMockApiService,
-        private _fuseNavigationService: FuseNavigationService
-    )
-    {
+        private _zeloMockApiService: ZeloMockApiService,
+        private _zeloNavigationService: ZeloNavigationService
+    ) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -34,26 +32,24 @@ export class SearchMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // Get the flat navigation and store it
-        const flatNavigation = this._fuseNavigationService.getFlatNavigation(this._defaultNavigation);
+        const flatNavigation = this._zeloNavigationService.getFlatNavigation(this._defaultNavigation);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Search results - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/search')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the search query
                 const query = cloneDeep(request.body.query.toLowerCase());
 
                 // If the search query is an empty string,
                 // return an empty array
-                if ( query === '' )
-                {
-                    return [200, {results: []}];
+                if (query === '') {
+                    return [200, { results: [] }];
                 }
 
                 // Filter the contacts
@@ -72,8 +68,7 @@ export class SearchMockApi
                 const results = [];
 
                 // If there are contacts results...
-                if ( contactsResults.length > 0 )
-                {
+                if (contactsResults.length > 0) {
                     // Normalize the results
                     contactsResults.forEach((result) => {
 
@@ -83,15 +78,14 @@ export class SearchMockApi
 
                     // Add to the results
                     results.push({
-                        id     : 'contacts',
-                        label  : 'Contacts',
+                        id: 'contacts',
+                        label: 'Contacts',
                         results: contactsResults
                     });
                 }
 
                 // If there are page results...
-                if ( pagesResults.length > 0 )
-                {
+                if (pagesResults.length > 0) {
                     // Normalize the results
                     pagesResults.forEach((result: any) => {
 
@@ -99,15 +93,14 @@ export class SearchMockApi
 
                     // Add to the results
                     results.push({
-                        id     : 'pages',
-                        label  : 'Pages',
+                        id: 'pages',
+                        label: 'Pages',
                         results: pagesResults
                     });
                 }
 
                 // If there are tasks results...
-                if ( tasksResults.length > 0 )
-                {
+                if (tasksResults.length > 0) {
                     // Normalize the results
                     tasksResults.forEach((result) => {
 
@@ -117,8 +110,8 @@ export class SearchMockApi
 
                     // Add to the results
                     results.push({
-                        id     : 'tasks',
-                        label  : 'Tasks',
+                        id: 'tasks',
+                        label: 'Tasks',
                         results: tasksResults
                     });
                 }

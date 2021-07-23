@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { ZeloMockApiService } from '@zelo/lib/mock-api/mock-api.service';
 import { items as itemsData } from 'app/mock-api/apps/file-manager/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class FileManagerMockApi
-{
+export class FileManagerMockApi {
     private _items: any[] = itemsData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,14 +24,13 @@ export class FileManagerMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Items - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/file-manager')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Clone the items
                 let items = cloneDeep(this._items);
@@ -63,19 +60,16 @@ export class FileManagerMockApi
                 let currentFolder = null;
 
                 // Get the current folder and add it as the first entry
-                if ( folderId )
-                {
+                if (folderId) {
                     currentFolder = pathItems.find(item => item.id === folderId);
                     path.push(currentFolder);
                 }
 
                 // Start traversing and storing the folders as a path array
                 // until we hit null on the folder id
-                while ( currentFolder?.folderId )
-                {
+                while (currentFolder?.folderId) {
                     currentFolder = pathItems.find(item => item.id === currentFolder.folderId);
-                    if ( currentFolder )
-                    {
+                    if (currentFolder) {
                         path.unshift(currentFolder);
                     }
                 }

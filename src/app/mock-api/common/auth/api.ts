@@ -3,22 +3,20 @@ import Base64 from 'crypto-js/enc-base64';
 import HmacSHA256 from 'crypto-js/hmac-sha256';
 import Utf8 from 'crypto-js/enc-utf8';
 import { cloneDeep } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
+import { ZeloMockApiService } from '@zelo/lib/mock-api';
 import { user as userData } from 'app/mock-api/common/user/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthMockApi
-{
+export class AuthMockApi {
     private readonly _secret: any;
     private _user: any = userData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Set the mock-api
         this._secret = 'YOUR_VERY_CONFIDENTIAL_SECRET_FOR_SIGNING_JWT_TOKENS!!!';
 
@@ -33,12 +31,11 @@ export class AuthMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Forgot password - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/forgot-password', 1000)
             .reply(() =>
                 [
@@ -50,7 +47,7 @@ export class AuthMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Reset password - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/reset-password', 1000)
             .reply(() =>
                 [
@@ -62,19 +59,18 @@ export class AuthMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Sign in - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/sign-in', 1500)
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Sign in successful
-                if ( request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin' )
-                {
+                if (request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin') {
                     return [
                         200,
                         {
-                            user       : cloneDeep(this._user),
+                            user: cloneDeep(this._user),
                             accessToken: this._generateJWTToken(),
-                            tokenType  : 'bearer'
+                            tokenType: 'bearer'
                         }
                     ];
                 }
@@ -89,22 +85,21 @@ export class AuthMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Verify and refresh the access token - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/refresh-access-token')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the access token
                 const accessToken = request.body.accessToken;
 
                 // Verify the token
-                if ( this._verifyJWTToken(accessToken) )
-                {
+                if (this._verifyJWTToken(accessToken)) {
                     return [
                         200,
                         {
-                            user       : cloneDeep(this._user),
+                            user: cloneDeep(this._user),
                             accessToken: this._generateJWTToken(),
-                            tokenType  : 'bearer'
+                            tokenType: 'bearer'
                         }
                     ];
                 }
@@ -121,7 +116,7 @@ export class AuthMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Sign up - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/sign-up', 1500)
             .reply(() =>
 
@@ -135,19 +130,18 @@ export class AuthMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Unlock session - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/auth/unlock-session', 1500)
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Sign in successful
-                if ( request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin' )
-                {
+                if (request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin') {
                     return [
                         200,
                         {
-                            user       : cloneDeep(this._user),
+                            user: cloneDeep(this._user),
                             accessToken: this._generateJWTToken(),
-                            tokenType  : 'bearer'
+                            tokenType: 'bearer'
                         }
                     ];
                 }
@@ -170,8 +164,7 @@ export class AuthMockApi
      * @param source
      * @private
      */
-    private _base64url(source: any): string
-    {
+    private _base64url(source: any): string {
         // Encode in classical base64
         let encodedSource = Base64.stringify(source);
 
@@ -194,8 +187,7 @@ export class AuthMockApi
      *
      * @private
      */
-    private _generateJWTToken(): string
-    {
+    private _generateJWTToken(): string {
         // Define token header
         const header = {
             alg: 'HS256',
@@ -210,7 +202,7 @@ export class AuthMockApi
         // Define token payload
         const payload = {
             iat: iat,
-            iss: 'Fuse',
+            iss: 'Zelo',
             exp: exp
         };
 
@@ -237,8 +229,7 @@ export class AuthMockApi
      * @param token
      * @private
      */
-    private _verifyJWTToken(token: string): boolean
-    {
+    private _verifyJWTToken(token: string): boolean {
         // Split the token into parts
         const parts = token.split('.');
         const header = parts[0];

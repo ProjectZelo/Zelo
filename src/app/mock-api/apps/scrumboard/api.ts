@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { ZeloMockApiService, ZeloMockApiUtils } from '@zelo/lib/mock-api';
 import { boards as boardsData, cards as cardsData, labels as labelsData, lists as listsData, members as membersData } from 'app/mock-api/apps/scrumboard/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ScrumboardMockApi
-{
+export class ScrumboardMockApi {
     // Private
     private _boards: any[] = boardsData;
     private _cards: any[] = cardsData;
@@ -18,8 +17,7 @@ export class ScrumboardMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -31,14 +29,13 @@ export class ScrumboardMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Boards - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/scrumboard/boards')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Clone the boards
                 let boards = cloneDeep(this._boards);
@@ -58,9 +55,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Board - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/scrumboard/board')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -97,15 +94,15 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ List - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/scrumboard/board/list')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the list
                 const newList = cloneDeep(request.body.list);
 
                 // Generate a new GUID
-                newList.id = FuseMockApiUtils.guid();
+                newList.id = ZeloMockApiUtils.guid();
 
                 // Store the new list
                 this._lists.push(newList);
@@ -119,9 +116,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ List - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/list')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the list
                 const list = cloneDeep(request.body.list);
@@ -132,8 +129,7 @@ export class ScrumboardMockApi
                 // Find the list and update it
                 this._lists.forEach((item, index, lists) => {
 
-                    if ( item.id === list.id )
-                    {
+                    if (item.id === list.id) {
                         // Update the list
                         lists[index] = assign({}, lists[index], list);
 
@@ -151,9 +147,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Lists - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/lists')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the lists
                 const lists = cloneDeep(request.body.lists);
@@ -183,9 +179,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ List - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/scrumboard/board/list')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -206,15 +202,15 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Card - PUT
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPut('api/apps/scrumboard/board/card')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the card
                 const newCard = cloneDeep(request.body.card);
 
                 // Generate a new GUID
-                newCard.id = FuseMockApiUtils.guid();
+                newCard.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new card
                 this._cards.push(newCard);
@@ -228,9 +224,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Card - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/card')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and card
                 const id = request.body.id;
@@ -245,8 +241,7 @@ export class ScrumboardMockApi
                 // Find the card and update it
                 this._cards.forEach((item, index, cards) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the card
                         cards[index] = assign({}, cards[index], card);
 
@@ -267,9 +262,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Cards - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/cards')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the cards
                 const cards = cloneDeep(request.body.cards);
@@ -305,9 +300,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Card - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/scrumboard/board/card')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -325,9 +320,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Card Positions - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/card/positions')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the cards
                 const cards = request.body.cards;
@@ -352,9 +347,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Labels - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/scrumboard/board/labels')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the board id
                 const boardId = request.params.get('boardId');
@@ -371,15 +366,15 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Label - PUT
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPut('api/apps/scrumboard/board/label')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the label
                 const newLabel = cloneDeep(request.body.label);
 
                 // Generate a new GUID
-                newLabel.id = FuseMockApiUtils.guid();
+                newLabel.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new label
                 this._labels.unshift(newLabel);
@@ -393,9 +388,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Label - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/scrumboard/board/label')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and label
                 const id = request.body.id;
@@ -407,8 +402,7 @@ export class ScrumboardMockApi
                 // Find the label and update it
                 this._labels.forEach((item, index, labels) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the label
                         labels[index] = assign({}, labels[index], label);
 
@@ -426,9 +420,9 @@ export class ScrumboardMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Label - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/scrumboard/board/label')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
