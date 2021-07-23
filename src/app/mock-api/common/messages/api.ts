@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { ZeloMockApiService, ZeloMockApiUtils } from '@zelo/lib/mock-api';
 import { messages as messagesData } from 'app/mock-api/common/messages/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MessagesMockApi
-{
+export class MessagesMockApi {
     private _messages: any = messagesData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,27 +24,26 @@ export class MessagesMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Messages - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/common/messages')
             .reply(() => [200, cloneDeep(this._messages)]);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Messages - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/messages')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the message
                 const newMessage = cloneDeep(request.body.message);
 
                 // Generate a new GUID
-                newMessage.id = FuseMockApiUtils.guid();
+                newMessage.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new message
                 this._messages.unshift(newMessage);
@@ -58,9 +55,9 @@ export class MessagesMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Messages - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/common/messages')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and message
                 const id = request.body.id;
@@ -72,8 +69,7 @@ export class MessagesMockApi
                 // Find the message and update it
                 this._messages.forEach((item: any, index: number, messages: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the message
                         messages[index] = assign({}, messages[index], message);
 
@@ -89,9 +85,9 @@ export class MessagesMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Messages - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/common/messages')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -115,7 +111,7 @@ export class MessagesMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Mark all as read - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/common/messages/mark-all-as-read')
             .reply(() => {
 
@@ -134,9 +130,9 @@ export class MessagesMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Toggle read status - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/messages/toggle-read-status')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the message
                 const message = cloneDeep(request.body.message);
@@ -147,8 +143,7 @@ export class MessagesMockApi
                 // Find the message and update it
                 this._messages.forEach((item: any, index: number, messages: any[]) => {
 
-                    if ( item.id === message.id )
-                    {
+                    if (item.id === message.id) {
                         // Update the message
                         messages[index].read = message.read;
 

@@ -5,8 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { FuseFullscreenModule } from '@fuse/components/fullscreen';
-import { FuseNavigationModule } from '@fuse/components/navigation';
+import { ZeloFullscreenModule } from '@zelo/components/fullscreen';
+import { ZeloNavigationModule } from '@zelo/components/navigation';
 import { LanguagesModule } from 'app/layout/common/languages/languages.module';
 import { NotificationsModule } from 'app/layout/common/notifications/notifications.module';
 import { SearchModule } from 'app/layout/common/search/search.module';
@@ -28,8 +28,8 @@ import { SchemeModule } from 'app/layout/common/scheme/scheme.module';
         MatDividerModule,
         MatIconModule,
         MatMenuModule,
-        FuseFullscreenModule,
-        FuseNavigationModule,
+        ZeloFullscreenModule,
+        ZeloNavigationModule,
         LanguagesModule,
         NotificationsModule,
         SearchModule,

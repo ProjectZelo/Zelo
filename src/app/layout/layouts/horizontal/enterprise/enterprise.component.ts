@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import { ZeloMediaWatcherService } from '@zelo/services/media-watcher';
+import { ZeloNavigationService } from '@zelo/components/navigation';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 
@@ -24,8 +24,8 @@ export class EnterpriseLayoutComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
         private _navigationService: NavigationService,
-        private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService
+        private _zeloMediaWatcherService: ZeloMediaWatcherService,
+        private _zeloNavigationService: ZeloNavigationService
     ) {
     }
 
@@ -58,7 +58,7 @@ export class EnterpriseLayoutComponent implements OnInit, OnDestroy {
             });
 
         // Subscribe to media changes
-        this._fuseMediaWatcherService.onMediaChange$
+        this._zeloMediaWatcherService.onMediaChange$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(({ matchingAliases }) => {
 
@@ -86,12 +86,12 @@ export class EnterpriseLayoutComponent implements OnInit, OnDestroy {
      */
     toggleNavigation(name: string): void {
         // Get the navigation
-        const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
+        // const navigation = this._zeloNavigationService.getComponent<ZeloVerticalNavigationComponent>(name);
 
-        if (navigation) {
-            // Toggle the opened status
-            navigation.toggle();
-        }
+        // if (navigation) {
+        // Toggle the opened status
+        //     navigation.toggle();
+        // }
     }
     isMobileOrTablet() {
         const userAgent = navigator.userAgent;

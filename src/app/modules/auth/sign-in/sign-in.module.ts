@@ -6,8 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FuseCardModule } from '@fuse/components/card';
-import { FuseAlertModule } from '@fuse/components/alert';
+import { ZeloCardModule } from '@zelo/components/card';
+import { ZeloAlertModule } from '@zelo/components/alert';
 import { SharedModule } from 'app/shared/shared.module';
 import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component';
 import { authSignInRoutes } from 'app/modules/auth/sign-in/sign-in.routing';
@@ -16,7 +16,7 @@ import { authSignInRoutes } from 'app/modules/auth/sign-in/sign-in.routing';
     declarations: [
         AuthSignInComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(authSignInRoutes),
         MatButtonModule,
         MatCheckboxModule,
@@ -24,11 +24,10 @@ import { authSignInRoutes } from 'app/modules/auth/sign-in/sign-in.routing';
         MatIconModule,
         MatInputModule,
         MatProgressSpinnerModule,
-        FuseCardModule,
-        FuseAlertModule,
+        ZeloCardModule,
+        ZeloAlertModule,
         SharedModule
     ]
 })
-export class AuthSignInModule
-{
+export class AuthSignInModule {
 }

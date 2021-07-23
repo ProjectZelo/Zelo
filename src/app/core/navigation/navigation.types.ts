@@ -1,9 +1,8 @@
-import { FuseNavigationItem } from '@fuse/components/navigation';
+import { ZeloNavigationItem } from '@zelo/components/navigation';
 
-export interface Navigation
-{
-    compact: FuseNavigationItem[];
-    default: FuseNavigationItem[];
-    futuristic: FuseNavigationItem[];
-    horizontal: FuseNavigationItem[];
+export interface Navigation {
+    compact: ZeloNavigationItem[];
+    default: ZeloNavigationItem[];
+    futuristic: ZeloNavigationItem[];
+    horizontal: ZeloNavigationItem[];
 }

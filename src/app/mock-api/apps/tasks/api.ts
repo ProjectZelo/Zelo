@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiUtils } from '@fuse/lib/mock-api/mock-api.utils';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { ZeloMockApiUtils } from '@zelo/lib/mock-api/mock-api.utils';
+import { ZeloMockApiService } from '@zelo/lib/mock-api/mock-api.service';
 import { tags as tagsData, tasks as tasksData } from 'app/mock-api/apps/tasks/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class TasksMockApi
-{
+export class TasksMockApi {
     private _tags: any[] = tagsData;
     private _tasks: any[] = tasksData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -28,12 +26,11 @@ export class TasksMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/tasks/tags')
             .reply(() => [
                 200,
@@ -43,15 +40,15 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/tasks/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the tag
                 const newTag = cloneDeep(request.body.tag);
 
                 // Generate a new GUID
-                newTag.id = FuseMockApiUtils.guid();
+                newTag.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new tag
                 this._tags.unshift(newTag);
@@ -65,9 +62,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/tasks/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and tag
                 const id = request.body.id;
@@ -79,8 +76,7 @@ export class TasksMockApi
                 // Find the tag and update it
                 this._tags.forEach((item, index, tags) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the tag
                         tags[index] = assign({}, tags[index], tag);
 
@@ -98,9 +94,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tag - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/tasks/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -126,7 +122,7 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tasks - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/tasks/all')
             .reply(() => {
 
@@ -145,9 +141,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tasks Search - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/tasks/search')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the search query
                 const query = request.params.get('query');
@@ -156,14 +152,13 @@ export class TasksMockApi
                 let results;
 
                 // If the query exists...
-                if ( query )
-                {
+                if (query) {
                     // Clone the tasks
                     let tasks = cloneDeep(this._tasks);
 
                     // Filter the tasks
                     tasks = tasks.filter(task => task.title && task.title.toLowerCase().includes(query.toLowerCase()) || task.notes && task.notes.toLowerCase()
-                                                                                                                                           .includes(query.toLowerCase()));
+                        .includes(query.toLowerCase()));
 
                     // Mark the found chars
                     tasks.forEach((task) => {
@@ -175,8 +170,7 @@ export class TasksMockApi
                     results = tasks;
                 }
                 // Otherwise, set the results to null
-                else
-                {
+                else {
                     results = null;
                 }
 
@@ -189,9 +183,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tasks Orders - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/tasks/order')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the tasks
                 const tasks = request.body.tasks;
@@ -216,9 +210,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Task - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/tasks/task')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id from the params
                 const id = request.params.get('id');
@@ -238,21 +232,21 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Task - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/tasks/task')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Generate a new task
                 const newTask = {
-                    id       : FuseMockApiUtils.guid(),
-                    type     : request.body.type,
-                    title    : '',
-                    notes    : null,
+                    id: ZeloMockApiUtils.guid(),
+                    type: request.body.type,
+                    title: '',
+                    notes: null,
                     completed: false,
-                    dueDate  : null,
-                    priority : 1,
-                    tags     : [],
-                    order    : 0
+                    dueDate: null,
+                    priority: 1,
+                    tags: [],
+                    order: 0
                 };
 
                 // Unshift the new task
@@ -272,9 +266,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Task - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/tasks/task')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and task
                 const id = request.body.id;
@@ -286,8 +280,7 @@ export class TasksMockApi
                 // Find the task and update it
                 this._tasks.forEach((item, index, tasks) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the task
                         tasks[index] = assign({}, tasks[index], task);
 
@@ -305,9 +298,9 @@ export class TasksMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Task - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/tasks/task')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
