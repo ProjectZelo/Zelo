@@ -35,12 +35,10 @@ const routerConfig: ExtraOptions = {
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent,
         EarnComponent,
         RoboComponent,
         ReceiveComponent,
         SendComponent,
-        HighchartComponent,
 
     ],
     imports: [

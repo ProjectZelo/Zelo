@@ -61,6 +61,8 @@ const routes: Routes = [
         children: [
             { path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) },
             { path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule) }
+
+
         ]
     },
 
@@ -78,7 +80,7 @@ const routes: Routes = [
 
     // Admin routes
     {
-        path: '',
+        path: 'dashboard',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
@@ -87,110 +89,89 @@ const routes: Routes = [
             data: DashboardResolver
         },
 
-        children: [
-            {
-
-                path: 'dashboard', component: DashboardComponent
-
-            },
-
-        ]
+        loadChildren: () => import('./modules/admin/dashboard/dashboard.module').then(m => m.DashboardModule)
 
 
     },
 
     {
-        path: '',
+        path: 'buy',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'buy', component: BuyComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/buy/buy.module').then(m => m.BuyModule)
+
+
+
 
 
     },
     {
-        path: '',
+        path: 'earn',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'earn', component: EarnComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/earn/earn.module').then(m => m.EarnModule)
 
-
-    },
-
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: EnterpriseLayoutComponent,
-        resolve: {
-            initialData: InitialDataResolver,
-
-        },
-        children: [
-            {
-                path: 'receive', component: ReceiveComponent
-            },
-
-        ]
 
 
     },
     {
-        path: '',
+        path: 'receive',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'send', component: SendComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/receive/receive.module').then(m => m.ReceiveModule)
 
 
     },
-
     {
-        path: '',
+        path: 'robo',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'robo', component: RoboComponent
-            },
 
-        ],
-    }
+        loadChildren: () => import('./modules/admin/robo/robo.module').then(m => m.RoboModule)
+
+
+    },
+    {
+        path: 'send',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: EnterpriseLayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+
+        loadChildren: () => import('./modules/admin/send/send.module').then(m => m.SendModule)
+
+
+    },
+
+
+
 
 ];
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
