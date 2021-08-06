@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { ZeloMockApiService, ZeloMockApiUtils } from '@zelo/lib/mock-api';
 import { contacts as contactsData, countries as countriesData, tags as tagsData } from 'app/mock-api/apps/contacts/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsMockApi
-{
+export class ContactsMockApi {
     private _contacts: any[] = contactsData;
     private _countries: any[] = countriesData;
     private _tags: any[] = tagsData;
@@ -17,8 +16,7 @@ export class ContactsMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -30,12 +28,11 @@ export class ContactsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Contacts - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/contacts/all')
             .reply(() => {
 
@@ -52,9 +49,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contacts Search - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/contacts/search')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the search query
                 const query = request.params.get('query');
@@ -63,8 +60,7 @@ export class ContactsMockApi
                 let contacts = cloneDeep(this._contacts);
 
                 // If the query exists...
-                if ( query )
-                {
+                if (query) {
                     // Filter the contacts
                     contacts = contacts.filter(contact => contact.name && contact.name.toLowerCase().includes(query.toLowerCase()));
                 }
@@ -79,9 +75,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contact - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/contacts/contact')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id from the params
                 const id = request.params.get('id');
@@ -99,25 +95,25 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contact - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/contacts/contact')
             .reply(() => {
 
                 // Generate a new contact
                 const newContact = {
-                    id          : FuseMockApiUtils.guid(),
-                    avatar      : null,
-                    name        : 'New Contact',
-                    emails      : [],
+                    id: ZeloMockApiUtils.guid(),
+                    avatar: null,
+                    name: 'New Contact',
+                    emails: [],
                     phoneNumbers: [],
-                    job         : {
-                        title  : '',
+                    job: {
+                        title: '',
                         company: ''
                     },
-                    birthday    : null,
-                    address     : null,
-                    notes       : null,
-                    tags        : []
+                    birthday: null,
+                    address: null,
+                    notes: null,
+                    tags: []
                 };
 
                 // Unshift the new contact
@@ -130,9 +126,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contact - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/contacts/contact')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and contact
                 const id = request.body.id;
@@ -144,8 +140,7 @@ export class ContactsMockApi
                 // Find the contact and update it
                 this._contacts.forEach((item, index, contacts) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the contact
                         contacts[index] = assign({}, contacts[index], contact);
 
@@ -161,9 +156,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contact - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/contacts/contact')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -171,8 +166,7 @@ export class ContactsMockApi
                 // Find the contact and delete it
                 this._contacts.forEach((item, index) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         this._contacts.splice(index, 1);
                     }
                 });
@@ -184,29 +178,29 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Countries - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/contacts/countries')
             .reply(() => [200, cloneDeep(this._countries)]);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/contacts/tags')
             .reply(() => [200, cloneDeep(this._tags)]);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/contacts/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the tag
                 const newTag = cloneDeep(request.body.tag);
 
                 // Generate a new GUID
-                newTag.id = FuseMockApiUtils.guid();
+                newTag.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new tag
                 this._tags.unshift(newTag);
@@ -218,9 +212,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/contacts/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and tag
                 const id = request.body.id;
@@ -232,8 +226,7 @@ export class ContactsMockApi
                 // Find the tag and update it
                 this._tags.forEach((item, index, tags) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the tag
                         tags[index] = assign({}, tags[index], tag);
 
@@ -249,9 +242,9 @@ export class ContactsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Tag - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/apps/contacts/tag')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -259,8 +252,7 @@ export class ContactsMockApi
                 // Find the tag and delete it
                 this._tags.forEach((item, index) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         this._tags.splice(index, 1);
                     }
                 });
@@ -307,11 +299,11 @@ export class ContactsMockApi
                 // Read the file as the
                 reader.readAsDataURL(file);
             })
-        ;
+            ;
 
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/apps/contacts/avatar')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and avatar
                 const id = request.body.id;
@@ -332,8 +324,7 @@ export class ContactsMockApi
                         // Find the contact and update it
                         this._contacts.forEach((item, index, contacts) => {
 
-                            if ( item.id === id )
-                            {
+                            if (item.id === id) {
                                 // Update the avatar
                                 contacts[index].avatar = path;
 

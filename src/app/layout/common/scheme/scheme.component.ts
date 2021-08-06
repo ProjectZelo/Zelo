@@ -1,10 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { FuseConfigService } from '@fuse/services/config';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { FuseTailwindService } from '@fuse/services/tailwind';
-import { FUSE_VERSION } from '@fuse/version';
+import { ZeloConfigService } from '@zelo/services/config';
+import { ZeloMediaWatcherService } from '@zelo/services/media-watcher';
+import { ZeloTailwindService } from '@zelo/services/tailwind';
+import { ZELO_VERSION } from '@zelo/version/zelo-version';
 import { AppConfig, Scheme, Theme } from 'app/core/config/app.config';
 import { Layout } from 'app/layout/layout.types';
 import { filter } from 'lodash';
@@ -33,23 +33,23 @@ export class SchemeComponent implements OnInit {
     @Inject(DOCUMENT) private _document: any,
     private _renderer2: Renderer2,
     private _router: Router,
-    private _fuseConfigService: FuseConfigService,
-    private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _fuseTailwindConfigService: FuseTailwindService
+    private _zeloConfigService: ZeloConfigService,
+    private _zeloMediaWatcherService: ZeloMediaWatcherService,
+    private _zeloTailwindConfigService: ZeloTailwindService
   ) {
   }
 
   ngOnInit(): void {
 
     // Get the themes
-    this._fuseTailwindConfigService.tailwindConfig$.subscribe((config) => {
+    this._zeloTailwindConfigService.tailwindConfig$.subscribe((config) => {
       this.themes = Object.entries(config.themes);
     });
 
     // Set the theme and scheme based on the configuration
     combineLatest([
-      this._fuseConfigService.config$,
-      this._fuseMediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)'])
+      this._zeloConfigService.config$,
+      this._zeloMediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)'])
     ]).pipe(
       takeUntil(this._unsubscribeAll),
       map(([config, mql]) => {
@@ -79,7 +79,7 @@ export class SchemeComponent implements OnInit {
     });
 
     // Subscribe to config changes
-    this._fuseConfigService.config$
+    this._zeloConfigService.config$
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((config: AppConfig) => {
 
@@ -93,7 +93,7 @@ export class SchemeComponent implements OnInit {
 
 
     // Set the app version
-    this._renderer2.setAttribute(this._document.querySelector('[ng-version]'), 'fuse-version', FUSE_VERSION);
+    this._renderer2.setAttribute(this._document.querySelector('[ng-version]'), 'zelo-version', ZELO_VERSION);
   }
 
   /**
@@ -124,7 +124,7 @@ export class SchemeComponent implements OnInit {
     }).then(() => {
 
       // Set the config
-      this._fuseConfigService.config = { layout };
+      this._zeloConfigService.config = { layout };
     });
   }
 
@@ -140,7 +140,7 @@ export class SchemeComponent implements OnInit {
       this.mode = 'light';
     }
     const scheme = this.mode;
-    this._fuseConfigService.config = { scheme };
+    this._zeloConfigService.config = { scheme };
   }
 
   /**
@@ -149,7 +149,7 @@ export class SchemeComponent implements OnInit {
   * @param theme
   */
   setTheme(theme: Theme): void {
-    this._fuseConfigService.config = { theme };
+    this._zeloConfigService.config = { theme };
   }
 
   // -----------------------------------------------------------------------------------------------------

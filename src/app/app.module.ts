@@ -3,15 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
-import { FuseModule } from '@fuse';
-import { FuseConfigModule } from '@fuse/services/config';
-import { FuseMockApiModule } from '@fuse/lib/mock-api';
+import { ZeloModule } from '@zelo';
+import { ZeloConfigModule } from '@zelo/services/config';
+import { ZeloMockApiModule } from '@zelo/lib/mock-api';
 import { CoreModule } from 'app/core/core.module';
 import { appConfig } from 'app/core/config/app.config';
 import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
-
 import { DashboardComponent } from './modules/admin/dashboard/dashboard.component';
 import { EarnComponent } from './modules/admin/earn/earn.component';
 import { RoboComponent } from './modules/admin/robo/robo.component';
@@ -50,10 +49,10 @@ const routerConfig: ExtraOptions = {
         BrowserAnimationsModule,
         AppRoutingModule,
 
-        // Fuse, FuseConfig & FuseMockAPI
-        FuseModule,
-        FuseConfigModule.forRoot(appConfig),
-        FuseMockApiModule.forRoot(mockApiServices),
+        // Zelo, ZeloConfig & ZeloMockAPI
+        ZeloModule,
+        ZeloConfigModule.forRoot(appConfig),
+        ZeloMockApiModule.forRoot(mockApiServices),
 
         // Core module of your application
         CoreModule,

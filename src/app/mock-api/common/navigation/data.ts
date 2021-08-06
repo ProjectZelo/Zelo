@@ -1,70 +1,70 @@
 /* tslint:disable:max-line-length */
-import { FuseNavigationItem } from '@fuse/components/navigation';
+import { ZeloNavigationItem } from '@zelo/components/navigation';
 
-export const defaultNavigation: FuseNavigationItem[] = [
+export const defaultNavigation: ZeloNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/example'
     }
 ];
-export const compactNavigation: FuseNavigationItem[] = [
+export const compactNavigation: ZeloNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/example'
     }
 ];
-export const futuristicNavigation: FuseNavigationItem[] = [
+export const futuristicNavigation: ZeloNavigationItem[] = [
     {
-        id   : 'example',
+        id: 'example',
         title: 'Example',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/example'
     }
 ];
-export const horizontalNavigation: FuseNavigationItem[] = [
+export const horizontalNavigation: ZeloNavigationItem[] = [
     {
-        id   : 'dashboard',
+        id: 'dashboard',
         title: 'Dashboard',
-        type : 'basic',
-        link : '/dashboard'
+        type: 'basic',
+        link: '/dashboard'
     },
 
     {
-        id   : 'buy',
+        id: 'buy',
         title: 'Buy',
-        type : 'basic',
-        link : '/buy'
+        type: 'basic',
+        link: '/buy'
     },
     {
-        id   : 'earn',
+        id: 'earn',
         title: 'Earn',
-        type : 'basic',
-        link : '/earn'
+        type: 'basic',
+        link: '/earn'
     },
     {
-        id   : 'send',
+        id: 'send',
         title: 'Send',
-        type : 'basic',
-        link : '/send'
+        type: 'basic',
+        link: '/send'
     },
     {
-        id   : 'receive',
+        id: 'receive',
         title: 'Receive',
-        type : 'basic',
-        link : '/receive'
+        type: 'basic',
+        link: '/receive'
     },
     {
-        id   : 'robo',
+        id: 'robo',
         title: 'Robo',
-        type : 'basic',
-        link : '/robo'
+        type: 'basic',
+        link: '/robo'
     },
 
 ];

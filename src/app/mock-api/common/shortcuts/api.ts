@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { ZeloMockApiService, ZeloMockApiUtils } from '@zelo/lib/mock-api';
 import { shortcuts as shortcutsData } from 'app/mock-api/common/shortcuts/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ShortcutsMockApi
-{
+export class ShortcutsMockApi {
     private _shortcuts: any = shortcutsData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,27 +24,26 @@ export class ShortcutsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Shortcuts - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/common/shortcuts')
             .reply(() => [200, cloneDeep(this._shortcuts)]);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Shortcuts - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/shortcuts')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the shortcut
                 const newShortcut = cloneDeep(request.body.shortcut);
 
                 // Generate a new GUID
-                newShortcut.id = FuseMockApiUtils.guid();
+                newShortcut.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new shortcut
                 this._shortcuts.unshift(newShortcut);
@@ -58,9 +55,9 @@ export class ShortcutsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Shortcuts - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/common/shortcuts')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and shortcut
                 const id = request.body.id;
@@ -72,8 +69,7 @@ export class ShortcutsMockApi
                 // Find the shortcut and update it
                 this._shortcuts.forEach((item: any, index: number, shortcuts: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the shortcut
                         shortcuts[index] = assign({}, shortcuts[index], shortcut);
 
@@ -89,9 +85,9 @@ export class ShortcutsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Shortcuts - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/common/shortcuts')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');

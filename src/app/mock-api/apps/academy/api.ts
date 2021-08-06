@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { ZeloMockApiService } from '@zelo/lib/mock-api/mock-api.service';
 import { categories as categoriesData, courses as coursesData, demoCourseSteps as demoCourseStepsData } from 'app/mock-api/apps/academy/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AcademyMockApi
-{
+export class AcademyMockApi {
     private _categories: any[] = categoriesData;
     private _courses: any[] = coursesData;
     private _demoCourseSteps: any[] = demoCourseStepsData;
@@ -15,8 +14,7 @@ export class AcademyMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -28,12 +26,11 @@ export class AcademyMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Categories - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/academy/categories')
             .reply(() => {
 
@@ -49,7 +46,7 @@ export class AcademyMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Courses - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/academy/courses')
             .reply(() => {
 
@@ -62,9 +59,9 @@ export class AcademyMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Course - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/academy/courses/course')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id from the params
                 const id = request.params.get('id');
@@ -75,8 +72,7 @@ export class AcademyMockApi
 
                 // Find the course and attach steps to it
                 const course = courses.find(item => item.id === id);
-                if ( course )
-                {
+                if (course) {
                     course.steps = steps;
                 }
 

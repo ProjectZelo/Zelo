@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import { ZeloNavigationService } from '@zelo/components/navigation';
 
 @Component({
     selector: 'languages',
@@ -20,7 +20,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseNavigationService: FuseNavigationService,
+        private _zeloNavigationService: ZeloNavigationService,
         private _translocoService: TranslocoService
     ) {
     }
@@ -102,18 +102,18 @@ export class LanguagesComponent implements OnInit, OnDestroy {
         // it's up to you.
 
         // Get the component -> navigation data -> item
-        const navComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+        // const navComponent = this._zeloNavigationService.getComponent<ZeloVerticalNavigationComponent>('mainNavigation');
 
         // Return if the navigation component does not exist
-        if (!navComponent) {
-            return null;
-        }
+        // if (!navComponent) {
+        //     return null;
+        // }
 
         // Get the flat navigation data
-        const navigation = navComponent.navigation;
+        // const navigation = navComponent.navigation;
 
         // Get the Project dashboard item and update its title
-        const projectDashboardItem = this._fuseNavigationService.getItem('dashboards.project', navigation);
+        const projectDashboardItem = this._zeloNavigationService.getItem('dashboards.project');
         if (projectDashboardItem) {
             this._translocoService.selectTranslate('Project').pipe(take(1))
                 .subscribe((translation) => {
@@ -122,12 +122,12 @@ export class LanguagesComponent implements OnInit, OnDestroy {
                     projectDashboardItem.title = translation;
 
                     // Refresh the navigation component
-                    navComponent.refresh();
+                    // navComponent.refresh();
                 });
         }
 
         // Get the Analytics dashboard item and update its title
-        const analyticsDashboardItem = this._fuseNavigationService.getItem('dashboards.analytics', navigation);
+        const analyticsDashboardItem = this._zeloNavigationService.getItem('dashboards.analytics');
         if (analyticsDashboardItem) {
             this._translocoService.selectTranslate('Analytics').pipe(take(1))
                 .subscribe((translation) => {
@@ -136,7 +136,7 @@ export class LanguagesComponent implements OnInit, OnDestroy {
                     analyticsDashboardItem.title = translation;
 
                     // Refresh the navigation component
-                    navComponent.refresh();
+                    // navComponent.refresh();
                 });
         }
     }

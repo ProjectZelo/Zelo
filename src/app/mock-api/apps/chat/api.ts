@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep, omit } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
+import { ZeloMockApiService } from '@zelo/lib/mock-api';
 import { chats as chatsData, contacts as contactsData, messages as messagesData, profile as profileData } from 'app/mock-api/apps/chat/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ChatMockApi
-{
+export class ChatMockApi {
     private _chats: any[] = chatsData;
     private _contacts: any[] = contactsData;
     private _messages: any[] = messagesData;
@@ -16,8 +15,7 @@ export class ChatMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
 
@@ -29,9 +27,9 @@ export class ChatMockApi
             // Since we use same set of messages on all chats, we assign them here.
             messages: this._messages.map(message => ({
                 ...message,
-                chatId   : chat.id,
+                chatId: chat.id,
                 contactId: message.contactId === 'me' ? this._profile.id : chat.contactId,
-                isMine   : message.contactId === 'me'
+                isMine: message.contactId === 'me'
             }))
         }));
     }
@@ -43,12 +41,11 @@ export class ChatMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Chats - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/chat/chats')
             .reply(() => {
 
@@ -62,9 +59,9 @@ export class ChatMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Chat - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/chat/chat')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the chat id
                 const id = request.params.get('id');
@@ -82,9 +79,9 @@ export class ChatMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Chat - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/apps/chat/chat')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and chat
                 const id = request.body.id;
@@ -96,8 +93,7 @@ export class ChatMockApi
                 // Find the chat and update it
                 this._chats.forEach((item, index, chats) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the chat
                         chats[index] = assign({}, chats[index], chat);
 
@@ -113,7 +109,7 @@ export class ChatMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contacts - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/chat/contacts')
             .reply(() => {
 
@@ -133,9 +129,9 @@ export class ChatMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Contact Details - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/chat/contact')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the contact id
                 const id = request.params.get('id');
@@ -153,7 +149,7 @@ export class ChatMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Profile - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/apps/chat/profile')
             .reply(() => {
 

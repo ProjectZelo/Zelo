@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
+import { ZeloMockApiService, ZeloMockApiUtils } from '@zelo/lib/mock-api';
 import { notifications as notificationsData } from 'app/mock-api/common/notifications/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class NotificationsMockApi
-{
+export class NotificationsMockApi {
     private _notifications: any = notificationsData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _zeloMockApiService: ZeloMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,27 +24,26 @@ export class NotificationsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Notifications - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/common/notifications')
             .reply(() => [200, cloneDeep(this._notifications)]);
 
         // -----------------------------------------------------------------------------------------------------
         // @ Notifications - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/notifications')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the notification
                 const newNotification = cloneDeep(request.body.notification);
 
                 // Generate a new GUID
-                newNotification.id = FuseMockApiUtils.guid();
+                newNotification.id = ZeloMockApiUtils.guid();
 
                 // Unshift the new notification
                 this._notifications.unshift(newNotification);
@@ -58,9 +55,9 @@ export class NotificationsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Notifications - PATCH
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPatch('api/common/notifications')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id and notification
                 const id = request.body.id;
@@ -72,8 +69,7 @@ export class NotificationsMockApi
                 // Find the notification and update it
                 this._notifications.forEach((item: any, index: number, notifications: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the notification
                         notifications[index] = assign({}, notifications[index], notification);
 
@@ -89,9 +85,9 @@ export class NotificationsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Notifications - DELETE
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onDelete('api/common/notifications')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the id
                 const id = request.params.get('id');
@@ -115,7 +111,7 @@ export class NotificationsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Mark all as read - GET
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onGet('api/common/notifications/mark-all-as-read')
             .reply(() => {
 
@@ -134,9 +130,9 @@ export class NotificationsMockApi
         // -----------------------------------------------------------------------------------------------------
         // @ Toggle read status - POST
         // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
+        this._zeloMockApiService
             .onPost('api/common/notifications/toggle-read-status')
-            .reply(({request}) => {
+            .reply(({ request }) => {
 
                 // Get the notification
                 const notification = cloneDeep(request.body.notification);
@@ -147,8 +143,7 @@ export class NotificationsMockApi
                 // Find the notification and update it
                 this._notifications.forEach((item: any, index: number, notifications: any[]) => {
 
-                    if ( item.id === notification.id )
-                    {
+                    if (item.id === notification.id) {
                         // Update the notification
                         notifications[index].read = notification.read;
 

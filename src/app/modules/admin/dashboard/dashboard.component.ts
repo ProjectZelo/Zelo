@@ -6,12 +6,11 @@ import { ApexOptions } from 'ng-apexcharts';
 import { DashboardService } from 'app/modules/admin/dashboard/dashboard.service';
 
 @Component({
-    selector       : 'dashboard',
-    templateUrl    : './dashboard.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'dashboard',
+    templateUrl: './dashboard.component.html',
+    encapsulation: ViewEncapsulation.None,
 })
-export class DashboardComponent implements OnInit, OnDestroy
-{ 
+export class DashboardComponent implements OnInit, OnDestroy {
     chartGithubIssues: ApexOptions = {};
     chartTaskDistribution: ApexOptions = {};
     chartBudgetDistribution: ApexOptions = {};
@@ -29,8 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy
     constructor(
         private _dashboardService: DashboardService,
         private _router: Router
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -40,12 +38,11 @@ export class DashboardComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.isPhoneOrTablet = this.isMobileOrTablet();
         // Get the data
 
-   
+
         this._dashboardService.data$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((data) => {
@@ -75,8 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -92,8 +88,7 @@ export class DashboardComponent implements OnInit, OnDestroy
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
@@ -111,8 +106,7 @@ export class DashboardComponent implements OnInit, OnDestroy
      * @param element
      * @private
      */
-    private _fixSvgFill(element: Element): void
-    {
+    private _fixSvgFill(element: Element): void {
         // Current URL
         const currentURL = this._router.url;
 
@@ -120,11 +114,11 @@ export class DashboardComponent implements OnInit, OnDestroy
         // 2. Filter out the ones that doesn't have cross reference so we only left with the ones that use the 'url(#id)' syntax
         // 3. Insert the 'currentURL' at the front of the 'fill' attribute value
         Array.from(element.querySelectorAll('*[fill]'))
-             .filter(el => el.getAttribute('fill').indexOf('url(') !== -1)
-             .forEach((el) => {
-                 const attrVal = el.getAttribute('fill');
-                 el.setAttribute('fill', `url(${currentURL}${attrVal.slice(attrVal.indexOf('#'))}`);
-             });
+            .filter(el => el.getAttribute('fill').indexOf('url(') !== -1)
+            .forEach((el) => {
+                const attrVal = el.getAttribute('fill');
+                el.setAttribute('fill', `url(${currentURL}${attrVal.slice(attrVal.indexOf('#'))}`);
+            });
     }
 
     /**
@@ -132,35 +126,34 @@ export class DashboardComponent implements OnInit, OnDestroy
      *
      * @private
      */
-    private _prepareChartData(): void
-    {
+    private _prepareChartData(): void {
         // Github issues
         this.chartGithubIssues = {
-            chart      : {
+            chart: {
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'line',
-                toolbar   : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'line',
+                toolbar: {
                     show: false
                 },
-                zoom      : {
+                zoom: {
                     enabled: false
                 }
             },
-            colors     : ['#64748B', '#94A3B8'],
-            dataLabels : {
-                enabled        : true,
+            colors: ['#64748B', '#94A3B8'],
+            dataLabels: {
+                enabled: true,
                 enabledOnSeries: [0],
-                background     : {
+                background: {
                     borderWidth: 0
                 }
             },
-            grid       : {
-                borderColor: 'var(--fuse-border)'
+            grid: {
+                borderColor: 'var(--zelo-border)'
             },
-            labels     : this.data.githubIssues.labels,
-            legend     : {
+            labels: this.data.githubIssues.labels,
+            legend: {
                 show: false
             },
             plotOptions: {
@@ -168,43 +161,43 @@ export class DashboardComponent implements OnInit, OnDestroy
                     columnWidth: '50%'
                 }
             },
-            series     : this.data.githubIssues.series,
-            states     : {
+            series: this.data.githubIssues.series,
+            states: {
                 hover: {
                     filter: {
-                        type : 'darken',
+                        type: 'darken',
                         value: 0.75
                     }
                 }
             },
-            stroke     : {
+            stroke: {
                 width: [3, 0]
             },
-            tooltip    : {
+            tooltip: {
                 followCursor: true,
-                theme       : 'dark'
+                theme: 'dark'
             },
-            xaxis      : {
+            xaxis: {
                 axisBorder: {
                     show: false
                 },
-                axisTicks : {
-                    color: 'var(--fuse-border)'
+                axisTicks: {
+                    color: 'var(--zelo-border)'
                 },
-                labels    : {
+                labels: {
                     style: {
-                        colors: 'var(--fuse-text-secondary)'
+                        colors: 'var(--zelo-text-secondary)'
                     }
                 },
-                tooltip   : {
+                tooltip: {
                     enabled: false
                 }
             },
-            yaxis      : {
+            yaxis: {
                 labels: {
                     offsetX: -16,
-                    style  : {
-                        colors: 'var(--fuse-text-secondary)'
+                    style: {
+                        colors: 'var(--zelo-text-secondary)'
                     }
                 }
             }
@@ -212,60 +205,60 @@ export class DashboardComponent implements OnInit, OnDestroy
 
         // Task distribution
         this.chartTaskDistribution = {
-            chart      : {
+            chart: {
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'polarArea',
-                toolbar   : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'polarArea',
+                toolbar: {
                     show: false
                 },
-                zoom      : {
+                zoom: {
                     enabled: false
                 }
             },
-            labels     : this.data.taskDistribution.labels,
-            legend     : {
+            labels: this.data.taskDistribution.labels,
+            legend: {
                 position: 'bottom'
             },
             plotOptions: {
                 polarArea: {
                     spokes: {
-                        connectorColors: 'var(--fuse-border)'
+                        connectorColors: 'var(--zelo-border)'
                     },
-                    rings : {
-                        strokeColor: 'var(--fuse-border)'
+                    rings: {
+                        strokeColor: 'var(--zelo-border)'
                     }
                 }
             },
-            series     : this.data.taskDistribution.series,
-            states     : {
+            series: this.data.taskDistribution.series,
+            states: {
                 hover: {
                     filter: {
-                        type : 'darken',
+                        type: 'darken',
                         value: 0.75
                     }
                 }
             },
-            stroke     : {
+            stroke: {
                 width: 2
             },
-            theme      : {
+            theme: {
                 monochrome: {
-                    enabled       : true,
-                    color         : '#93C5FD',
+                    enabled: true,
+                    color: '#93C5FD',
                     shadeIntensity: 0.75,
-                    shadeTo       : 'dark'
+                    shadeTo: 'dark'
                 }
             },
-            tooltip    : {
+            tooltip: {
                 followCursor: true,
-                theme       : 'dark'
+                theme: 'dark'
             },
-            yaxis      : {
+            yaxis: {
                 labels: {
                     style: {
-                        colors: 'var(--fuse-text-secondary)'
+                        colors: 'var(--zelo-text-secondary)'
                     }
                 }
             }
@@ -273,95 +266,95 @@ export class DashboardComponent implements OnInit, OnDestroy
 
         // Budget distribution
         this.chartBudgetDistribution = {
-            chart      : {
+            chart: {
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'radar',
-                sparkline : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'radar',
+                sparkline: {
                     enabled: true
                 }
             },
-            colors     : ['#818CF8'],
-            dataLabels : {
-                enabled   : true,
-                formatter : (val: number): string | number => `${val}%`,
+            colors: ['#818CF8'],
+            dataLabels: {
+                enabled: true,
+                formatter: (val: number): string | number => `${val}%`,
                 textAnchor: 'start',
-                style     : {
-                    fontSize  : '13px',
+                style: {
+                    fontSize: '13px',
                     fontWeight: 500
                 },
                 background: {
                     borderWidth: 0,
-                    padding    : 4
+                    padding: 4
                 },
-                offsetY   : -15
+                offsetY: -15
             },
-            markers    : {
+            markers: {
                 strokeColors: '#818CF8',
-                strokeWidth : 4
+                strokeWidth: 4
             },
             plotOptions: {
                 radar: {
                     polygons: {
-                        strokeColors   : 'var(--fuse-border)',
-                        connectorColors: 'var(--fuse-border)'
+                        strokeColors: 'var(--zelo-border)',
+                        connectorColors: 'var(--zelo-border)'
                     }
                 }
             },
-            series     : this.data.budgetDistribution.series,
-            stroke     : {
+            series: this.data.budgetDistribution.series,
+            stroke: {
                 width: 2
             },
-            tooltip    : {
+            tooltip: {
                 theme: 'dark',
-                y    : {
+                y: {
                     formatter: (val: number): string => `${val}%`
                 }
             },
-            xaxis      : {
-                labels    : {
-                    show : true,
+            xaxis: {
+                labels: {
+                    show: true,
                     style: {
-                        fontSize  : '12px',
+                        fontSize: '12px',
                         fontWeight: '500'
                     }
                 },
                 categories: this.data.budgetDistribution.categories
             },
-            yaxis      : {
-                max       : (max: number): number => parseInt((max + 10).toFixed(0), 10),
+            yaxis: {
+                max: (max: number): number => parseInt((max + 10).toFixed(0), 10),
                 tickAmount: 7
             }
         };
 
         // Weekly expenses
         this.chartWeeklyExpenses = {
-            chart  : {
+            chart: {
                 animations: {
                     enabled: false
                 },
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'line',
-                sparkline : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'line',
+                sparkline: {
                     enabled: true
                 }
             },
-            colors : ['#22D3EE'],
-            series : this.data.weeklyExpenses.series,
-            stroke : {
+            colors: ['#22D3EE'],
+            series: this.data.weeklyExpenses.series,
+            stroke: {
                 curve: 'smooth'
             },
             tooltip: {
                 theme: 'dark'
             },
-            xaxis  : {
-                type      : 'category',
+            xaxis: {
+                type: 'category',
                 categories: this.data.weeklyExpenses.labels
             },
-            yaxis  : {
+            yaxis: {
                 labels: {
                     formatter: (val): string => `$${val}`
                 }
@@ -370,31 +363,31 @@ export class DashboardComponent implements OnInit, OnDestroy
 
         // Monthly expenses
         this.chartMonthlyExpenses = {
-            chart  : {
+            chart: {
                 animations: {
                     enabled: false
                 },
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'line',
-                sparkline : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'line',
+                sparkline: {
                     enabled: true
                 }
             },
-            colors : ['#4ADE80'],
-            series : this.data.monthlyExpenses.series,
-            stroke : {
+            colors: ['#4ADE80'],
+            series: this.data.monthlyExpenses.series,
+            stroke: {
                 curve: 'smooth'
             },
             tooltip: {
                 theme: 'dark'
             },
-            xaxis  : {
-                type      : 'category',
+            xaxis: {
+                type: 'category',
                 categories: this.data.monthlyExpenses.labels
             },
-            yaxis  : {
+            yaxis: {
                 labels: {
                     formatter: (val): string => `$${val}`
                 }
@@ -403,31 +396,31 @@ export class DashboardComponent implements OnInit, OnDestroy
 
         // Yearly expenses
         this.chartYearlyExpenses = {
-            chart  : {
+            chart: {
                 animations: {
                     enabled: false
                 },
                 fontFamily: 'inherit',
-                foreColor : 'inherit',
-                height    : '100%',
-                type      : 'line',
-                sparkline : {
+                foreColor: 'inherit',
+                height: '100%',
+                type: 'line',
+                sparkline: {
                     enabled: true
                 }
             },
-            colors : ['#FB7185'],
-            series : this.data.yearlyExpenses.series,
-            stroke : {
+            colors: ['#FB7185'],
+            series: this.data.yearlyExpenses.series,
+            stroke: {
                 curve: 'smooth'
             },
             tooltip: {
                 theme: 'dark'
             },
-            xaxis  : {
-                type      : 'category',
+            xaxis: {
+                type: 'category',
                 categories: this.data.yearlyExpenses.labels
             },
-            yaxis  : {
+            yaxis: {
                 labels: {
                     formatter: (val): string => `$${val}`
                 }

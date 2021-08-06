@@ -5,8 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { FuseCardModule } from '@fuse/components/card';
-import { FuseAlertModule } from '@fuse/components/alert';
+import { ZeloCardModule } from '@zelo/components/card';
+import { ZeloAlertModule } from '@zelo/components/alert';
 import { SharedModule } from 'app/shared/shared.module';
 import { AuthResetPasswordComponent } from 'app/modules/auth/reset-password/reset-password.component';
 import { authResetPasswordRoutes } from 'app/modules/auth/reset-password/reset-password.routing';
@@ -15,18 +15,17 @@ import { authResetPasswordRoutes } from 'app/modules/auth/reset-password/reset-p
     declarations: [
         AuthResetPasswordComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(authResetPasswordRoutes),
         MatButtonModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
         MatProgressSpinnerModule,
-        FuseCardModule,
-        FuseAlertModule,
+        ZeloCardModule,
+        ZeloAlertModule,
         SharedModule
     ]
 })
-export class AuthResetPasswordModule
-{
+export class AuthResetPasswordModule {
 }
