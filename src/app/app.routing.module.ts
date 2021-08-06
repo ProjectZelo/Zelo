@@ -1,4 +1,5 @@
-import { Route } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
@@ -13,9 +14,9 @@ import { SchemeComponent } from './layout/common/scheme/scheme.component';
 import { DashboardResolver } from './modules/admin/dashboard/dashboard.resolvers';
 import { EnterpriseLayoutComponent } from './layout/layouts/horizontal/enterprise/enterprise.component';
 
-// @formatter:off
-// tslint:disable:max-line-length
-export const appRoutes: Route[] = [
+
+
+const routes: Routes = [
 
     // Redirect empty path to '/example'
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
@@ -186,3 +187,10 @@ export const appRoutes: Route[] = [
     }
 
 ];
+
+
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
+})
+export class AppRoutingModule {}

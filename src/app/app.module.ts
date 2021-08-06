@@ -11,7 +11,6 @@ import { appConfig } from 'app/core/config/app.config';
 import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
-import { appRoutes } from 'app/app.routing';
 import { DashboardComponent } from './modules/admin/dashboard/dashboard.component';
 import { EarnComponent } from './modules/admin/earn/earn.component';
 import { RoboComponent } from './modules/admin/robo/robo.component';
@@ -22,6 +21,7 @@ import highmaps from 'highcharts/modules/map.src';
 import more from 'highcharts/highcharts-more.src';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import { HighchartComponent } from './modules/chart/highchart/highchart.component'
+import { AppRoutingModule } from './app.routing.module';
 
 export function highchartsModules() {
     return [more, highmaps];
@@ -49,7 +49,7 @@ const routerConfig: ExtraOptions = {
         BrowserModule,
         ChartModule,
         BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes, routerConfig),
+        AppRoutingModule,
 
         // Zelo, ZeloConfig & ZeloMockAPI
         ZeloModule,
