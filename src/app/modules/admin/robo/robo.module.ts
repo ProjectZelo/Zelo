@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReceiveComponent } from './receive.component';
+import { RoboComponent } from './robo.component';
 
 
 
 @NgModule({
   declarations: [
-    ReceiveComponent
+    RoboComponent
+
   ],
   imports: [
     CommonModule
   ]
 })
-export class ReceiveModule { }
+export class RoboModule { }

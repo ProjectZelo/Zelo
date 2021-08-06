@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReceiveComponent } from './receive.component';
+import { SendComponent } from './send.component';
 
 
 
 @NgModule({
   declarations: [
-    ReceiveComponent
+    SendComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class ReceiveModule { }
+export class SendModule { }

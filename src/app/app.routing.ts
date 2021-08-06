@@ -25,7 +25,7 @@ export const appRoutes: Route[] = [
     // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard' },
+    { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: '' },
 
     // Auth routes for guests
     {
@@ -54,135 +54,85 @@ export const appRoutes: Route[] = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
-        data: {
-            layout: 'empty'
-        },
-        children: [
-            { path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) },
-            { path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule) }
-        ]
-    },
-
-    // Landing routes
-    {
-        path: '',
-        component: EnterpriseLayoutComponent,
-        data: {
-            layout: 'empty'
-        },
-        children: [
-            { path: 'home', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.LandingHomeModule) },
-        ]
-    },
-
-    // Admin routes
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
             data: DashboardResolver
         },
-
         children: [
-            {
-
-                path: 'dashboard', component: DashboardComponent
-
-            },
+            { path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule) },
+            { path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule) },
+            { path: 'dashboard', loadChildren: () => import('./modules/admin/dashboard/dashboard.module').then(m => m.DashboardModule) }
 
         ]
-
-
     },
 
     {
-        path: '',
+        path: 'buy',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'buy', component: BuyComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/buy/buy.module').then(m => m.BuyModule)
 
 
     },
+
     {
-        path: '',
+        path: 'earn',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'earn', component: EarnComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/earn/earn.module').then(m => m.EarnModule)
 
 
     },
 
     {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: EnterpriseLayoutComponent,
-        resolve: {
-            initialData: InitialDataResolver,
-
-        },
-        children: [
-            {
-                path: 'receive', component: ReceiveComponent
-            },
-
-        ]
-
-
-    },
-    {
-        path: '',
+        path: 'send',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'send', component: SendComponent
-            },
 
-        ]
+        loadChildren: () => import('./modules/admin/send/send.module').then(m => m.SendModule)
 
 
     },
-
     {
-        path: '',
+        path: 'receive',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         component: EnterpriseLayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
         },
-        children: [
-            {
-                path: 'robo', component: RoboComponent
-            },
 
-        ],
-    }
+        loadChildren: () => import('./modules/admin/receive/receive.module').then(m => m.ReceiveModule)
 
-];
+
+    },
+    {
+        path: 'robo',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: EnterpriseLayoutComponent,
+        resolve: {
+            initialData: InitialDataResolver,
+        },
+
+        loadChildren: () => import('./modules/admin/robo/robo.module').then(m => m.RoboModule)
+
+
+    },
+
+
+]

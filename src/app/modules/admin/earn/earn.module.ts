@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReceiveComponent } from './receive.component';
+import { EarnComponent } from './earn.component';
 
 
 
 @NgModule({
   declarations: [
-    ReceiveComponent
+    EarnComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class ReceiveModule { }
+export class EarnModule { }
